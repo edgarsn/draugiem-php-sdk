@@ -1,0 +1,50 @@
+name: Static Analysis
+
+on:
+    push:
+    pull_request:
+    workflow_dispatch:
+
+jobs:
+    phpstan:
+        name: PHPStan Analysis
+        runs-on: ubuntu-latest
+        env:
+            COMPOSER_NO_INTERACTION: 1
+        steps:
+            -   uses: actions/checkout@v3
+
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: 7.4
+                    coverage: none
+
+            -   name: Install dependencies
+                run: |
+                    composer update --prefer-dist --no-interaction --no-progress
+
+            -   name: Run PHPStan
+                run: composer phpstan -- --no-progress
+
+    style:
+        name: PHP-CS-Fixer Analysis
+        runs-on: ubuntu-latest
+        env:
+            COMPOSER_NO_INTERACTION: 1
+        steps:
+            -   uses: actions/checkout@v3
+
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: 7.4
+                    coverage: none
+
+            -   name: Install dependencies
+                run: |
+                    composer update --prefer-dist --no-interaction --no-progress
+
+            -   name: Check style
+                run: composer lint
+

@@ -1,0 +1,59 @@
+{
+	"name": "newman/draugiem-php-sdk",
+	"description": "Draugiem.lv API library for PHP based on Guzzle.",
+	"keywords": [
+		"draugiem",
+		"draugiem.lv",
+		"api",
+		"client",
+		"library",
+		"guzzle"
+	],
+	"type": "library",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Edgars Neimanis",
+			"email": "neimanis.edgars@gmail.com"
+		}
+	],
+	"require": {
+		"php": "^7.4|^8.0",
+		"guzzlehttp/guzzle": "^7.5"
+	},
+	"require-dev": {
+		"friendsofphp/php-cs-fixer": "^3.0",
+		"phpstan/phpstan": "^1.9",
+		"phpunit/phpunit": "^8.0|^9.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"Newman\\DraugiemPhpSdk\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Newman\\DraugiemPhpSdk\\Tests\\": "tests/"
+		}
+	},
+	"scripts": {
+		"phpstan": "phpstan analyse --memory-limit=256M",
+		"lint": "php-cs-fixer fix --diff --dry-run",
+		"fix-style": "php-cs-fixer fix",
+		"test": "./vendor/bin/phpunit --colors=always --verbose",
+		"test-coverage": "php -dpcov.enabled=1 -dpcov.directory=src/ -dpcov.exclude=\"~vendor~\" ./vendor/bin/phpunit --colors=always --verbose --coverage-text",
+		"test-coverage-html": "php -dpcov.enabled=1 -dpcov.directory=src/ -dpcov.exclude=\"~vendor~\" ./vendor/bin/phpunit --colors=always --verbose --coverage-html phpunit-coverage"
+	},
+	"extra": {
+		"laravel": {
+			"providers": [
+				"Newman\\DraugiemPhpSdk\\DelayServiceProvider"
+			]
+		}
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"config": {
+		"sort-packages": true
+	}
+}
